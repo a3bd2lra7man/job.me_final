@@ -1,0 +1,70 @@
+{
+  "project_info": {
+    "project_number": "953725845456",
+    "project_id": "job-me-1df95",
+    "storage_bucket": "job-me-1df95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953725845456:android:fbec63f8988bda730083d5",
+        "android_client_info": {
+          "package_name": "com.naja7.jobme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953725845456-0o0gnie7s7lnqtrut76thcppqn5aus59.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.naja7.jobme",
+            "certificate_hash": "4160b15b6f612ea943d2ea09cabe9e2781119198"
+          }
+        },
+        {
+          "client_id": "953725845456-7hqtt8qkahdnbg4not8j4au49sji0dcv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.naja7.jobme",
+            "certificate_hash": "5c477597c700a4b6506b3e76f0e9f1d5a85e1f48"
+          }
+        },
+        {
+          "client_id": "953725845456-r1vmfngkl3qpci90vsh0e4jq2pb82s93.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.naja7.jobme",
+            "certificate_hash": "605bee718d32dba475847622c3d627f31bea1394"
+          }
+        },
+        {
+          "client_id": "953725845456-me1rgn12ipqgm0pnmmtgfm1ce5tdatt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRtwrvNvtK64xGoJKzWmJyxwBRRpzVK-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953725845456-70nek2sv0m48jo9lpv1b45k2gopmf0h7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "953725845456-2vfhul4ka3mnd8qdulanbtgeq85fdhs1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.naja7.jobme"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
