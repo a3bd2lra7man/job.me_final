@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/get_utils.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/themes/colors.dart';
 import 'package:job_me/_shared/themes/text_styles.dart';
@@ -13,7 +12,6 @@ import 'package:job_me/user/_shared/widgets/password_edit_text.dart';
 import 'package:job_me/user/_user_core/models/roles.dart';
 import 'package:job_me/user/login/providers/login_provider.dart';
 import 'package:job_me/user/forget_password/ui/forget_password_screen.dart';
-import 'package:provider/provider.dart';
 
 class BaseLoginScreen extends StatelessWidget {
   final Color color;

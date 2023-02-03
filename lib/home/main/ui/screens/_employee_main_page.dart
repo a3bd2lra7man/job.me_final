@@ -63,7 +63,7 @@ class _EmployeeMainPageState extends State<EmployeeMainPage> {
                   child: Center(
                     child: Text(
                       context.translate('no_special_jobs_now'),
-                      style: AppTextStyles.titleBold.copyWith(color: AppColors.darkGrey),
+                      style: AppTextStyles.titleBold.copyWith(color: AppColors.primary),
                     ),
                   ),
                 ),

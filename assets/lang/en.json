@@ -217,6 +217,9 @@
   "back_to_login": "Back to login",
   "old_password": "Old Password",
   "change_password": "Change Password",
-  "select_country":"Select a Country/Region"
-
+  "select_country":"Select a Country/Region",
+  "you_are_not_employee": "You are not a job requester \n do you want to continue as a jop owner",
+  "you_are_not_company": "You are not a jop owner \n do you want to continue as a job requester",
+  "you_did_not_add_any_offer": "Opps... \n It seems that you didn't add any offer",
+  "you_did_not_add_any_saved": "Opps... \n It seems that you didn't add any favorite"
 }

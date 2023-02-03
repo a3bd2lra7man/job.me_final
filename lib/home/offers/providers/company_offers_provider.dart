@@ -17,13 +17,16 @@ class CompanyOffersProvider extends ChangeNotifier {
   final List<CompanyOffer> offers = [];
   bool _isFirstLoading = false;
   bool _isPaginationLoading = false;
+  bool _isOffersEmpty = false;
 
   bool get isFirstLoading => _isFirstLoading;
 
   bool get isPaginationLoading => _isPaginationLoading;
+  bool get isOffersEmpty => _isOffersEmpty;
 
   Future getNextOffers() async {
     if (_checkIfPaginationReachEnd()) return;
+    _isOffersEmpty = false;
     var isFirstLoading = _getIfThisPaginationLoadingOrTheFirstTime();
     _notify(loading: true, firstTime: isFirstLoading);
 
@@ -31,7 +34,7 @@ class CompanyOffersProvider extends ChangeNotifier {
       var offers = await _offersFetcher.getNextOffers();
       this.offers.addAll(offers);
       if (this.offers.isEmpty) {
-        _toastNoEnteredDataYet();
+        _isOffersEmpty = true;
       } else if (_offersFetcher.didReachEnd) {
         _toastThatListReachEnd();
       }
@@ -67,9 +70,5 @@ class CompanyOffersProvider extends ChangeNotifier {
 
   _toastThatListReachEnd() {
     showSnackBar(body: context.translate('no_more_data'));
-  }
-
-  _toastNoEnteredDataYet() {
-    showSnackBar(body: context.translate('no_entered_data_yet'));
   }
 }

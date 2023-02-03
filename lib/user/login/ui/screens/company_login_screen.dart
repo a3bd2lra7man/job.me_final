@@ -43,7 +43,7 @@ class CompanyLoginScreen extends StatelessWidget {
 
   void _login(LoginProvider provider) {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-      provider.login();
+      provider.loginWithRole(Roles.jobCompany);
     }
   }
 }

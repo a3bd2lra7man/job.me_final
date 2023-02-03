@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/themes/colors.dart';
+import 'package:job_me/_shared/themes/text_styles.dart';
 import 'package:job_me/_utils/check_is_user_logged_in.dart';
 import 'package:job_me/home/_shared/widgets/job_card.dart';
 import 'package:job_me/home/saved_jobs/providers/saved_jobs_provider.dart';
@@ -50,16 +53,27 @@ class _SavedAdsJobsScreenState extends State<SavedAdsJobsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
               const SizedBox(height: 16),
-              Column(
-                children: provider.savedJobs
-                    .map(
-                      (job) => JobCard(
-                        job: job,
-                        height: 120,
+              provider.isSavedListEmpty
+                  ? SizedBox(
+                      height: context.height * .6,
+                      child: Center(
+                        child: Text(
+                          context.translate('you_did_not_add_any_saved'),
+                          style: AppTextStyles.headerBig.copyWith(color: AppColors.primary),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     )
-                    .toList(),
-              ),
+                  : Column(
+                      children: provider.savedJobs
+                          .map(
+                            (job) => JobCard(
+                              job: job,
+                              height: 120,
+                            ),
+                          )
+                          .toList(),
+                    ),
               const SizedBox(height: 20),
               Visibility(
                 visible: provider.isPaginationLoading,

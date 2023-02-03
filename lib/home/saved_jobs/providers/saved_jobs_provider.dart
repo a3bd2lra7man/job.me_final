@@ -17,13 +17,16 @@ class SavedJobsProvider extends ChangeNotifier {
   final List<JobAdvertisement> savedJobs = [];
   bool _isFirstLoading = false;
   bool _isPaginationLoading = false;
+  bool _isSavedListEmpty = false;
 
   bool get isFirstLoading => _isFirstLoading;
 
   bool get isPaginationLoading => _isPaginationLoading;
+  bool get isSavedListEmpty => _isSavedListEmpty;
 
   Future getNextSavedJobs() async {
     if (_checkIfPaginationReachEnd()) return;
+    _isSavedListEmpty = false;
     var isFirstLoading = _getIfThisPaginationLoadingOrTheFirstTime();
     _notify(loading: true, firstTime: isFirstLoading);
 
@@ -31,7 +34,7 @@ class SavedJobsProvider extends ChangeNotifier {
       var savedJobs = await _savedJobsFetcher.getNextSavedJobs();
       this.savedJobs.addAll(savedJobs);
       if (this.savedJobs.isEmpty) {
-        _toastNoEnteredDataYet();
+        _isSavedListEmpty = true;
       } else if (_savedJobsFetcher.didReachEnd) {
         _toastThatListReachEnd();
       }

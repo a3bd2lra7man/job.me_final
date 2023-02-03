@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/themes/colors.dart';
+import 'package:job_me/_shared/themes/text_styles.dart';
 import 'package:job_me/_utils/check_is_user_logged_in.dart';
 import 'package:job_me/home/offers/providers/employee_offers_provider.dart';
 import 'package:job_me/home/offers/ui/widget/employee_offer_card.dart';
@@ -33,7 +36,6 @@ class _EmployeeOffersScreenState extends State<EmployeeOffersScreen> {
     _setupScrollDownToLoadMoreItems();
   }
 
-
   void _setupScrollDownToLoadMoreItems() {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
@@ -51,9 +53,20 @@ class _EmployeeOffersScreenState extends State<EmployeeOffersScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
               const SizedBox(height: 16),
-              Column(
-                children: provider.offers.map((job) => EmployeeOfferCard(offer: job)).toList(),
-              ),
+              provider.isOffersEmpty
+                  ? SizedBox(
+                      height: context.height * .6,
+                      child: Center(
+                        child: Text(
+                          context.translate('you_did_not_add_any_offer'),
+                          style: AppTextStyles.headerBig.copyWith(color: AppColors.primary),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    )
+                  : Column(
+                      children: provider.offers.map((job) => EmployeeOfferCard(offer: job)).toList(),
+                    ),
               const SizedBox(height: 20),
               Visibility(
                 visible: provider.isPaginationLoading,
