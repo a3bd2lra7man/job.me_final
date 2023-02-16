@@ -12,7 +12,7 @@ class JobAdvertisement {
   late String _publishTime;
   String? requirement;
   String? _image;
-
+  int? categoryId;
   String? jobCountry;
 
 
@@ -31,6 +31,7 @@ class JobAdvertisement {
       required this.description,
       required this.yearsOfExperiences,
       required this.workTime,
+        required this.categoryId,
       this.requirement});
 
   JobAdvertisement.fromJson(Map json) {
@@ -48,6 +49,9 @@ class JobAdvertisement {
     }
     requirement = json['requirement'];
     _publishTime = json['updated_at'].toString().split('T')[0];
+    if(json['category_id'] != null){
+      categoryId = json['category_id'];
+    }
   }
 
   Map<String, dynamic> toJson() => {
@@ -55,6 +59,7 @@ class JobAdvertisement {
         "description": description,
         "workTime": workTime,
         "yearsOfExperiences": yearsOfExperiences,
-        if (requirement != null) "requirement": requirement
+        if (requirement != null) "requirement": requirement,
+        'category_id':categoryId
       };
 }

@@ -17,9 +17,9 @@ class SearchJobsResultFetcher {
 
   SearchJobsResultFetcher() : _api = API();
 
-  Future<List<JobAdvertisement>> getNext(String searchText) async {
-    var normalJobUrl = SearchUrls.searchNormalJobUrl(_currentPage, searchText);
-    var specialJobUrl = SearchUrls.searchSpecialJobUrl(_currentPage, searchText);
+  Future<List<JobAdvertisement>> getNext(String searchText,int? categoryId,String? country) async {
+    var normalJobUrl = SearchUrls.searchNormalJobUrl(_currentPage, searchText,categoryId,country);
+    var specialJobUrl = SearchUrls.searchSpecialJobUrl(_currentPage, searchText,categoryId,country);
     _sessionId = DateTime.now().millisecondsSinceEpoch.toString();
     var normalJobSearchApiRequest = APIRequest.withId(normalJobUrl, _sessionId);
     var specialJobSearchApiRequest = APIRequest.withId(specialJobUrl, _sessionId);

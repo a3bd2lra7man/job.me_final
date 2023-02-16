@@ -25,4 +25,9 @@ class AdvertisementUrls{
   static addToSpecial() {
     return "${BaseUrls.baseUrl()}/addThisAdsToSpecial";
   }
+
+  static String categoriesUrl() {
+    return "${BaseUrls.baseUrl()}/categories";
+  }
+
 }

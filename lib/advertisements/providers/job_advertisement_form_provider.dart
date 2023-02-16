@@ -8,6 +8,7 @@ import 'package:job_me/_shared/api/exceptions/server_sent_exception.dart';
 import 'package:job_me/_shared/exceptions/app_exception.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/widgets/snack_bar.dart';
+import 'package:job_me/advertisements/services/categories_fetcher.dart';
 import 'package:job_me/advertisements/services/job_advertisement_adder.dart';
 import 'package:job_me/advertisements/services/job_advertisement_updater.dart';
 import 'package:job_me/advertisements/ui/screens/failed_success/success_publish_a_job_advertisement.dart';
@@ -15,8 +16,11 @@ import 'package:job_me/_job_advertisement_core/models/job_advertisement.dart';
 import 'package:job_me/advertisements/ui/screens/my_advertisement_screen.dart';
 import 'package:job_me/user/_user_core/repositories/user_repository.dart';
 
+import '../models/category.dart';
+
 class JobAdvertisementFormProvider extends ChangeNotifier {
   BuildContext context;
+  List<Category> selectableCategories = [];
 
   JobAdvertisementFormProvider(this.context);
 
@@ -25,10 +29,16 @@ class JobAdvertisementFormProvider extends ChangeNotifier {
   final yearsOfExperienceController = TextEditingController();
   final hoursToWorkInPerDayController = TextEditingController();
   final requirementController = TextEditingController();
+  Category? selectedCategory;
 
   bool isLoading = false;
   final jobAdvertiser = JobAdvertisementAdder();
   final jobAdUpdater = JobAdvertisementUpdater();
+
+  void setSelectedCategory(Category? category) {
+    selectedCategory = category;
+    notifyListeners();
+  }
 
   Future addJobAdvertisement() async {
     isLoading = true;
@@ -58,7 +68,7 @@ class JobAdvertisementFormProvider extends ChangeNotifier {
       await jobAdUpdater.updateAnAdJob(jobAdvertisement);
       showSnackBar(body: context.translate('updated_successfully'));
       _clearControllers();
-      Get.off(() => MyAdvertisementScreen.init());
+      Get.off(MyAdvertisementScreen.init());
     } on ServerSentException catch (e) {
       showSnackBar(body: json.encode(e.errorResponse));
     } on AppException catch (e) {
@@ -70,12 +80,12 @@ class JobAdvertisementFormProvider extends ChangeNotifier {
 
   JobAdvertisement _getJobAdvertisement() {
     return JobAdvertisement(
-      title: titleController.text,
-      description: descriptionController.text,
-      yearsOfExperiences: num.parse(yearsOfExperienceController.text),
-      workTime: num.parse(hoursToWorkInPerDayController.text),
-      requirement: requirementController.text.isNotEmpty ? requirementController.text : null,
-    );
+        title: titleController.text,
+        description: descriptionController.text,
+        yearsOfExperiences: num.parse(yearsOfExperienceController.text),
+        workTime: num.parse(hoursToWorkInPerDayController.text),
+        requirement: requirementController.text.isNotEmpty ? requirementController.text : null,
+        categoryId: selectedCategory!.id);
   }
 
   void _clearControllers() {

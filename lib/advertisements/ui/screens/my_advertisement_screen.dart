@@ -32,7 +32,9 @@ class _MyAdvertisementScreenState extends State<MyAdvertisementScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<MyAdsProvider>().getNextMyAds();
+      context.read<MyAdsProvider>().getCategories().then((value) =>
+          context.read<MyAdsProvider>().getNextMyAds()
+      );
     });
     _setupScrollDownToLoadMoreItems();
   }
@@ -59,24 +61,24 @@ class _MyAdvertisementScreenState extends State<MyAdvertisementScreen> {
         child: provider.isFirstLoading
             ? const MyAdsLoader()
             : ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                children: [
-                  const SizedBox(height: 16),
-                  Column(
-                    children: provider.myAds.map((job) => MyAdsCard(job: job)).toList(),
-                  ),
-                  const SizedBox(height: 20),
-                  Visibility(
-                    visible: provider.isPaginationLoading,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.primary,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                ],
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          children: [
+            const SizedBox(height: 16),
+            Column(
+              children: provider.myAds.map((job) => MyAdsCard(job: job)).toList(),
+            ),
+            const SizedBox(height: 20),
+            Visibility(
+              visible: provider.isPaginationLoading,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.primary,
+                ),
               ),
+            ),
+            const SizedBox(height: 40),
+          ],
+        ),
       ),
     );
   }

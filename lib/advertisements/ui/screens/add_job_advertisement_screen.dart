@@ -5,6 +5,7 @@ import 'package:job_me/_shared/themes/text_styles.dart';
 import 'package:job_me/_shared/widgets/loading_widget.dart';
 import 'package:job_me/_shared/widgets/primary_app_bar.dart';
 import 'package:job_me/_shared/widgets/primary_button.dart';
+import 'package:job_me/_shared/widgets/shimmer_page.dart';
 import 'package:job_me/advertisements/providers/advertisement_provider.dart';
 import 'package:job_me/advertisements/providers/job_advertisement_form_provider.dart';
 import 'package:job_me/advertisements/ui/widgets/job_advertisement_form.dart';
@@ -34,7 +35,7 @@ class _AddJobAdvertisementScreenState extends State<AddJobAdvertisementScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<AdvertisementOffersProvider>().getAdvertisementData();
+      context.read<AdvertisementOffersProvider>().getRequiredData();
     });
   }
 
@@ -42,7 +43,8 @@ class _AddJobAdvertisementScreenState extends State<AddJobAdvertisementScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = context.watch<JobAdvertisementFormProvider>();
+    var formProvider = context.watch<JobAdvertisementFormProvider>();
+    var provider = context.watch<AdvertisementOffersProvider>();
     return Scaffold(
       appBar: PrimaryAppBar(
         elevation: 0,
@@ -62,20 +64,29 @@ class _AddJobAdvertisementScreenState extends State<AddJobAdvertisementScreen> {
               style: AppTextStyles.titleBold,
             ),
             const SizedBox(height: 10),
-            JobAdvertisementForm(
-              formKey: _formKey,
-            ),
-            const SizedBox(height: 20),
             provider.isLoading
                 ? const LoadingWidget()
-                : PrimaryButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        provider.addJobAdvertisement();
-                      }
-                    },
-                    title: _getAppropriateTextForEachUser(),
-                  ),
+                : Builder(builder: (_) {
+                    if (formProvider.selectedCategory == null) {
+                      formProvider.setSelectedCategory(provider.selectableCategories[0]);
+                    }
+                    return JobAdvertisementForm(
+                      formKey: _formKey,
+                    );
+                  }),
+            const SizedBox(height: 20),
+            formProvider.isLoading
+                ? const LoadingWidget()
+                : provider.isLoading
+                    ? const SizedBox()
+                    : PrimaryButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            formProvider.addJobAdvertisement();
+                          }
+                        },
+                        title: _getAppropriateTextForEachUser(),
+                      ),
             const SizedBox(height: 80),
           ],
         ),

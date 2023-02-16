@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/themes/colors.dart';
 import 'package:job_me/_shared/widgets/primary_app_bar.dart';
 import 'package:job_me/_shared/widgets/primary_button.dart';
 import 'package:job_me/_shared/widgets/primary_edit_text.dart';
+import 'package:job_me/_utils/localizations/localization_proivder.dart';
 import 'package:job_me/home/_shared/widgets/job_card.dart';
 import 'package:job_me/home/home/providers/home_provider.dart';
 import 'package:job_me/home/search/providers/search_provider.dart';
+import 'package:job_me/home/search/ui/screens/search_select_category.dart';
+import 'package:job_me/home/search/ui/screens/search_select_country.dart';
 import 'package:job_me/home/search/ui/widgets/saved_jobs_loader.dart';
+import 'package:job_me/home/search/ui/widgets/search_filter_container.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -34,6 +39,9 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     super.initState();
     _setupScrollDownToLoadMoreItems();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<SearchJobsProvider>().getCountriesAndCategories();
+    });
   }
 
   void _setupScrollDownToLoadMoreItems() {
@@ -44,11 +52,10 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     var provider = context.watch<SearchJobsProvider>();
+    var isEnglish = context.watch<LocalizationProvider>().isEn();
     return Scaffold(
       appBar: PrimaryAppBar(
         title: context.translate('the_search'),
@@ -57,7 +64,7 @@ class _SearchScreenState extends State<SearchScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: PrimaryButton(
         onPressed: () {
-          if (_formKey.currentState!.validate()) provider.searchedJobs();
+          provider.searchedJobs();
         },
         title: context.translate('search'),
       ),
@@ -66,39 +73,36 @@ class _SearchScreenState extends State<SearchScreen> {
         child: ListView(
           controller: _scrollController,
           children: [
-            Form(
-              key: _formKey,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(16),
-                    bottomLeft: Radius.circular(16),
-                  ),
+            Container(
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(16),
+                  bottomLeft: Radius.circular(16),
                 ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32),
-                      child: PrimaryEditText(
-                        validator: (s) =>
-                            s != null && s.isNotEmpty ? null : context.translate('please_enter_valid_string'),
-                        hint: context.translate('write_job_name'),
-                        controller: provider.searchController,
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            if (_formKey.currentState!.validate()) provider.searchedJobs();
-                          },
-                          child: Icon(
-                            Icons.search,
-                            color: Colors.grey[400],
-                          ),
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    child: PrimaryEditText(
+                      validator: (s) =>
+                          s != null && s.isNotEmpty ? null : context.translate('please_enter_valid_string'),
+                      hint: context.translate('write_job_name'),
+                      controller: provider.searchController,
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          provider.searchedJobs();
+                        },
+                        child: Icon(
+                          Icons.search,
+                          color: Colors.grey[400],
                         ),
                       ),
                     ),
-                    const SizedBox(height: 40),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 40),
+                ],
               ),
             ),
             const SizedBox(height: 16),
@@ -107,7 +111,25 @@ class _SearchScreenState extends State<SearchScreen> {
                 : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
-                      children: provider.resultJobs.map((job) => JobCard(job: job)).toList(),
+                      children: [
+                        SearchFilterContainer(
+                            title: context.translate('search_category'),
+                            subTitle: provider.selectedCategory?.getName(isEnglish) ??
+                                context.translate('all_search_category'),
+                            onTap: () {
+                              Get.to(SearchSelectCategory.init(provider));
+                            }),
+                        SearchFilterContainer(
+                            title: context.translate('country'),
+                            subTitle: provider.selectedCountry ?? context.translate('all_countries'),
+                            onTap: () {
+                              Get.to(SearchSelectCountry.init(provider));
+                            }),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        ...provider.resultJobs.map((job) => JobCard(job: job)).toList()
+                      ],
                     ),
                   ),
             const SizedBox(height: 20),

@@ -41,7 +41,13 @@ class _UpdateJobAdvertisementScreenState extends State<UpdateJobAdvertisementScr
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<AdvertisementOffersProvider>().getAdvertisementData();
+      var provider = context.read<AdvertisementOffersProvider>();
+      provider.getRequiredData().then((value) {
+        var jobAdvertisementCategory = provider.selectableCategories.firstWhere(
+            (element) => element.id == widget.jobAdvertisement.categoryId,
+            orElse: () => provider.selectableCategories[0]);
+        context.read<JobAdvertisementFormProvider>().setSelectedCategory(jobAdvertisementCategory);
+      });
     });
   }
 
@@ -49,7 +55,8 @@ class _UpdateJobAdvertisementScreenState extends State<UpdateJobAdvertisementScr
 
   @override
   Widget build(BuildContext context) {
-    var provider = context.watch<JobAdvertisementFormProvider>();
+    var formProvider = context.watch<JobAdvertisementFormProvider>();
+    var provider = context.watch<AdvertisementOffersProvider>();
     return Scaffold(
       appBar: PrimaryAppBar(
         elevation: 0,
@@ -69,20 +76,26 @@ class _UpdateJobAdvertisementScreenState extends State<UpdateJobAdvertisementScr
               style: AppTextStyles.titleBold,
             ),
             const SizedBox(height: 10),
-            JobAdvertisementForm(
-              formKey: _formKey,
-            ),
-            const SizedBox(height: 20),
             provider.isLoading
                 ? const LoadingWidget()
-                : PrimaryButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        provider.updateJobAdvertisement(widget.jobAdvertisement.id);
-                      }
-                    },
-                    title: context.translate('update_ads'),
-                  ),
+                : Builder(builder: (_) {
+                    return JobAdvertisementForm(
+                      formKey: _formKey,
+                    );
+                  }),
+            const SizedBox(height: 20),
+            formProvider.isLoading
+                ? const LoadingWidget()
+                : provider.isLoading
+                    ? const SizedBox()
+                    : PrimaryButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            formProvider.updateJobAdvertisement(widget.jobAdvertisement.id);
+                          }
+                        },
+                        title: context.translate('update_ads'),
+                      ),
             const SizedBox(height: 20),
             Visibility(
               visible: !widget.jobAdvertisement.isSpecial,

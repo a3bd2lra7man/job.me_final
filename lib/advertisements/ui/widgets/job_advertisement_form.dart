@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/themes/colors.dart';
+import 'package:job_me/_shared/themes/text_styles.dart';
 import 'package:job_me/_shared/widgets/primary_edit_text.dart';
+import 'package:job_me/_utils/localizations/localization_proivder.dart';
+import 'package:job_me/advertisements/models/category.dart';
+import 'package:job_me/advertisements/providers/advertisement_provider.dart';
 import 'package:job_me/advertisements/providers/job_advertisement_form_provider.dart';
+import 'package:job_me/advertisements/ui/screens/select_category.dart';
 import 'package:job_me/advertisements/ui/widgets/multi_line_edit_text.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +19,9 @@ class JobAdvertisementForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var provider = context.watch<JobAdvertisementFormProvider>();
+    var formProvider = context.watch<JobAdvertisementFormProvider>();
+    var provider = context.watch<AdvertisementOffersProvider>();
+    var isEnglish = context.watch<LocalizationProvider>().isEn();
 
     return Form(
       key: formKey,
@@ -27,45 +35,70 @@ class JobAdvertisementForm extends StatelessWidget {
           child: Column(
             children: [
               PrimaryEditText(
-                controller: provider.titleController,
+                controller: formProvider.titleController,
                 hint: context.translate('job_name'),
-                validator: provider.isJobNameValid,
+                validator: formProvider.isJobNameValid,
               ),
               const SizedBox(height: 40),
               LargeEditText(
-                controller: provider.descriptionController,
-                validator: provider.isLongTextValid,
+                controller: formProvider.descriptionController,
+                validator: formProvider.isLongTextValid,
                 hint: context.translate('job_description'),
               ),
               const SizedBox(height: 20),
               Visibility(
-                visible: provider.isUserCompany(),
+                visible: formProvider.isUserCompany(),
                 child: LargeEditText(
-                  controller: provider.requirementController,
-                  validator: provider.isLongTextValid,
+                  controller: formProvider.requirementController,
+                  validator: formProvider.isLongTextValid,
                   hint: context.translate('job_requirements'),
                   maxLines: 4,
                 ),
               ),
               Visibility(
-                visible: provider.isUserCompany(),
+                visible: formProvider.isUserCompany(),
                 child: const SizedBox(height: 20),
               ),
+              const SizedBox(height: 8),
+              Container(
+                decoration:
+                    BoxDecoration(border: Border.all(color: AppColors.grey), borderRadius: BorderRadius.circular(16)),
+                child: ListTile(
+                  onTap: () => Get.to(SelectCategory.init(provider.selectableCategories, formProvider)),
+                  title: Text(
+                    context.translate('search_category'),
+                    style: AppTextStyles.title,
+                  ),
+                  subtitle: Text(
+                    formProvider.selectedCategory!.getName(isEnglish),
+                    style: AppTextStyles.bodyNormal,
+                  ),
+                  trailing: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
               PrimaryEditText(
-                controller: provider.yearsOfExperienceController,
+                controller: formProvider.yearsOfExperienceController,
                 hint: context.translate('years_of_experience'),
-                validator: provider.isNumberValid,
+                validator: formProvider.isNumberValid,
                 inputType: TextInputType.number,
               ),
               const SizedBox(height: 40),
               PrimaryEditText(
-                controller: provider.hoursToWorkInPerDayController,
+                controller: formProvider.hoursToWorkInPerDayController,
                 hint: context.translate('work_hours'),
-                validator: provider.isNumberValid,
+                validator: formProvider.isNumberValid,
                 inputType: TextInputType.number,
               ),
               const SizedBox(height: 40),
-
             ],
           ),
         ),

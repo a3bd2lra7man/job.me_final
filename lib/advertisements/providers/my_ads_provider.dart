@@ -9,10 +9,12 @@ import 'package:job_me/_job_advertisement_core/models/job_advertisement.dart';
 import 'package:job_me/advertisements/services/job_advertisement_deleter.dart';
 import 'package:job_me/advertisements/services/my_ads_fetcher.dart';
 
+
 class MyAdsProvider extends ChangeNotifier {
   BuildContext context;
 
   MyAdsProvider(this.context);
+
 
   final MyAdsFetcher _myAdsFetcher = MyAdsFetcher();
   final _adDeleter = JobAdvertisementDeleter();
@@ -31,6 +33,11 @@ class MyAdsProvider extends ChangeNotifier {
   Future refreshAndGetMyAds() async {
     _myAdsFetcher.refreshPagination();
     await getNextMyAds();
+  }
+
+  Future getCategories() async {
+    _isFirstLoading = true;
+    notifyListeners();
   }
 
   Future getNextMyAds() async {
