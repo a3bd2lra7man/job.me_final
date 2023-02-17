@@ -31,7 +31,6 @@ class _TransactionCardState extends State<TransactionCard> with RouteAware {
   @override
   Widget build(BuildContext context) {
     var provider = context.watch<AdToSpecialProvider>();
-    var myAdsProvider = context.watch<MyAdsProvider>();
     return GestureDetector(
       onTap: () async {
         setState(() {

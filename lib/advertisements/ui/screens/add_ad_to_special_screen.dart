@@ -70,12 +70,15 @@ class _AddAdToSpecialScreenState extends State<AddAdToSpecialScreen> {
             ? const AdToSpecialLoader()
             : provider.transactions.isEmpty
                 ? SizedBox(
-                    height: context.height * .6,
+                    height: context.height ,
                     child: Center(
-                      child: Text(
-                        context.translate('you_did_not_buy_any_coins'),
-                        style: AppTextStyles.headerBig.copyWith(color: AppColors.primary),
-                        textAlign: TextAlign.center,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Text(
+                          context.translate('you_did_not_buy_any_coins'),
+                          style: AppTextStyles.headerBig.copyWith(color: AppColors.primary),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   )
