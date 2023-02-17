@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:job_me/_job_advertisement_core/models/job_advertisement.dart';
 import 'package:job_me/advertisements/providers/ad_to_special_provider.dart';
 import 'package:job_me/advertisements/providers/my_ads_provider.dart';
@@ -50,7 +51,7 @@ class _AddAdToSpecialScreenState extends State<AddAdToSpecialScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<AdToSpecialProvider>().getTransactions();
+      context.read<AdToSpecialProvider>().getBoughtCoins();
     });
   }
 
@@ -66,27 +67,38 @@ class _AddAdToSpecialScreenState extends State<AddAdToSpecialScreen> {
       body: Container(
         color: AppColors.primary.withOpacity(.04),
         child: provider.isLoading
-            ? const TransactionsCardLoader()
-            : ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                children: [
-                  const SizedBox(height: 20),
-                  JobHeader(
-                    job: widget.jobAdvertisement,
+            ? const AdToSpecialLoader()
+            : provider.transactions.isEmpty
+                ? SizedBox(
+                    height: context.height * .6,
+                    child: Center(
+                      child: Text(
+                        context.translate('you_did_not_buy_any_coins'),
+                        style: AppTextStyles.headerBig.copyWith(color: AppColors.primary),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  )
+                : ListView(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    children: [
+                      const SizedBox(height: 20),
+                      JobHeader(
+                        job: widget.jobAdvertisement,
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        context.translate('coins_cards'),
+                        style: AppTextStyles.titleBold,
+                      ),
+                      ...(provider.transactions
+                          .map((transaction) => TransactionCard(
+                                transaction: transaction,
+                                jobAdvertisement: widget.jobAdvertisement,
+                              ))
+                          .toList()),
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                  Text(
-                    context.translate('coins_cards'),
-                    style: AppTextStyles.titleBold,
-                  ),
-                  ...(provider.transactions
-                      .map((transaction) => TransactionCard(
-                            transaction: transaction,
-                            jobAdvertisement: widget.jobAdvertisement,
-                          ))
-                      .toList()),
-                ],
-              ),
       ),
     );
   }

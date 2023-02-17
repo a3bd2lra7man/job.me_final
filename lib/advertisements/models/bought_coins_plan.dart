@@ -1,4 +1,4 @@
-class Transaction {
+class BoughtCoinsPlan {
   late int id;
   late String itemName;
   late int? adsJobsId;
@@ -6,7 +6,7 @@ class Transaction {
 
   bool isUsed() => adsJobsId != null;
 
-  Transaction.fromJson(Map map) {
+  BoughtCoinsPlan.fromJson(Map map) {
     id = map['id'];
     itemName = map['item_name'];
     adsJobsId = map['ads_jobs_id'];

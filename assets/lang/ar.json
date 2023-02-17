@@ -131,7 +131,7 @@
   "job_name": "عنوان الوظيفة",
   "continue": "استمرار",
   "advertisement_packages": "باقات الاعلان",
-  "success_adding_advertisement": "تم نشر اعلانك في الاعلانات المميزة",
+  "success_adding_advertisement": "تم نشر اعلانك بنجاح",
   "good_luck": "حظاً موفقاً",
   "advertise_again": "اعلن مره اخري",
   "not_enough_credit": "ليس لديك عملات كافية لنشر اعلانك",
@@ -226,5 +226,8 @@
   "all_search_category": "جميع التصنيفات",
   "all_countries": "جميع الدول",
   "category_selection": "اختيار التصنيف",
-  "country_selection": "اختيار الدولة"
+  "country_selection": "اختيار الدولة",
+  "you_did_not_buy_any_coins": "عذرا يبدو أنك لم تقم بشراء أي عملات \n الرجاء قم بشراء بعض العملات ثم العودة",
+  "success_adding_advertisement_to_special": "تم إضافة اعلانك ف المميزة بنجاح"
+
 }

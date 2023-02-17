@@ -131,7 +131,7 @@
   "job_name": "Job title",
   "continue": "Continue",
   "advertisement_packages": "Advertisement Packages",
-  "success_adding_advertisement": "Successfully Ad your job to specials",
+  "success_adding_advertisement": "Successfully publish your job advertisement",
   "good_luck": "Good luckً",
   "advertise_again": "DO it again",
   "not_enough_credit": "There is no enough coins to add your job to special",
@@ -226,5 +226,7 @@
   "all_search_category": "All Categories",
   "all_countries": "All Countries",
   "category_selection": "Category Selection",
-  "country_selection": "Country Selection"
+  "country_selection": "Country Selection",
+  "you_did_not_buy_any_coins": "You did not buy any coins \n please buy coins and come back",
+  "success_adding_advertisement_to_special": "Successfully add your job advertisement to Special"
 }

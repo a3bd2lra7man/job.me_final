@@ -5,7 +5,7 @@ import 'package:job_me/_shared/api/services/api/api.dart';
 import 'package:job_me/_shared/exceptions/unknown_exception.dart';
 import 'package:job_me/advertisements/constants/advertisement_url.dart';
 import 'package:job_me/_job_advertisement_core/models/job_advertisement.dart';
-import 'package:job_me/advertisements/models/transactions.dart';
+import 'package:job_me/advertisements/models/bought_coins_plan.dart';
 import 'package:job_me/user/_user_core/repositories/user_repository.dart';
 
 class AdToSpecialAdder {
@@ -14,12 +14,12 @@ class AdToSpecialAdder {
 
   AdToSpecialAdder();
 
-  Future addToSpecial(JobAdvertisement jobAdvertisement, Transaction transaction) async {
+  Future addToSpecial(JobAdvertisement jobAdvertisement, BoughtCoinsPlan transaction) async {
     isLoading = true;
     var url = AdvertisementUrls.addToSpecial();
     var apiRequest = APIRequest(url);
     var userId = UserRepository().getUser().id;
-    apiRequest.addParameters({'ads_id': jobAdvertisement.id, "order_id": transaction.id,"user_id":userId});
+    apiRequest.addParameters({'adsId': jobAdvertisement.id, "orderId": transaction.id,"user_id":userId});
     try {
       var apiResponse = await _networkAdapter.post(apiRequest);
       isLoading = false;

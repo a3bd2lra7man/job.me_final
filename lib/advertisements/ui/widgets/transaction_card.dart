@@ -5,14 +5,15 @@ import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/themes/colors.dart';
 import 'package:job_me/_shared/themes/text_styles.dart';
 import 'package:job_me/_shared/widgets/loading_widget.dart';
-import 'package:job_me/advertisements/models/transactions.dart';
+import 'package:job_me/advertisements/models/bought_coins_plan.dart';
 import 'package:job_me/advertisements/providers/ad_to_special_provider.dart';
 import 'package:job_me/advertisements/providers/my_ads_provider.dart';
+import 'package:job_me/advertisements/ui/screens/failed_success/success_publish_a_job_advertisement_to_special.dart';
 import 'package:provider/provider.dart';
 
 class TransactionCard extends StatefulWidget {
   final JobAdvertisement jobAdvertisement;
-  final Transaction transaction;
+  final BoughtCoinsPlan transaction;
 
   const TransactionCard({
     Key? key,
@@ -39,8 +40,7 @@ class _TransactionCardState extends State<TransactionCard> with RouteAware {
         var isSuccess =
             await provider.addToSpecial(jobAdvertisement: widget.jobAdvertisement, transaction: widget.transaction);
         if (isSuccess != null && isSuccess == true) {
-          Get.back();
-          myAdsProvider.refreshAndGetMyAds();
+          Get.to(()=>const SuccessfullyPublishedAJobAdvertisementToSpecialScreen());
         } else {
           setState(() {
             isLoading = false;

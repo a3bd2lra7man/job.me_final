@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:job_me/_shared/widgets/card_loader.dart';
 import 'package:job_me/_shared/widgets/shimmer_page.dart';
 
-class TransactionsCardLoader extends StatelessWidget {
-  const TransactionsCardLoader({
+class AdToSpecialLoader extends StatelessWidget {
+  const AdToSpecialLoader({
     Key? key,
   }) : super(key: key);
 

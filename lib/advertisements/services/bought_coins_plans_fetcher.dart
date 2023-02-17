@@ -6,7 +6,7 @@ import 'package:job_me/_shared/api/exceptions/api_exception.dart';
 import 'package:job_me/_shared/api/services/api/api.dart';
 import 'package:job_me/_shared/exceptions/unknown_exception.dart';
 import 'package:job_me/advertisements/constants/advertisement_url.dart';
-import 'package:job_me/advertisements/models/transactions.dart';
+import 'package:job_me/advertisements/models/bought_coins_plan.dart';
 
 class TransactionsFetcher {
   final API _api;
@@ -15,7 +15,7 @@ class TransactionsFetcher {
 
   TransactionsFetcher() : _api = API();
 
-  Future<List<Transaction>> getTransactions() async {
+  Future<List<BoughtCoinsPlan>> getBoughtCoinsPlans() async {
     var url = AdvertisementUrls.offersUrl();
     _sessionId = DateTime.now().millisecondsSinceEpoch.toString();
     var apiRequest = APIRequest.withId(url, _sessionId);
@@ -31,9 +31,9 @@ class TransactionsFetcher {
     }
   }
 
-  Future<List<Transaction>> _processResponse(APIResponse apiResponse) async {
+  Future<List<BoughtCoinsPlan>> _processResponse(APIResponse apiResponse) async {
     //returning empty list if the response is from another session
-    if (apiResponse.apiRequest.requestId != _sessionId) return Completer<List<Transaction>>().future;
+    if (apiResponse.apiRequest.requestId != _sessionId) return Completer<List<BoughtCoinsPlan>>().future;
     _throwExceptionIfResponseFormatIsWrong(apiResponse);
 
     try {
@@ -52,11 +52,11 @@ class TransactionsFetcher {
     if (apiResponse.data['Result']['orders']['data'] == null) throw UnknownException();
   }
 
-  List<Transaction> _getUsersTransactions(APIResponse apiResponse) {
+  List<BoughtCoinsPlan> _getUsersTransactions(APIResponse apiResponse) {
     var transactionsList = apiResponse.data['Result']['orders']['data'] as List;
-    var transactions = <Transaction>[];
+    var transactions = <BoughtCoinsPlan>[];
     for (var element in transactionsList) {
-      transactions.add(Transaction.fromJson(element));
+      transactions.add(BoughtCoinsPlan.fromJson(element));
     }
     return transactions;
   }

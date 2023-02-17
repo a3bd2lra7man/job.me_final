@@ -6,15 +6,15 @@ import 'package:job_me/_shared/api/exceptions/server_sent_exception.dart';
 import 'package:job_me/_shared/exceptions/app_exception.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/widgets/snack_bar.dart';
-import 'package:job_me/advertisements/models/transactions.dart';
+import 'package:job_me/advertisements/models/bought_coins_plan.dart';
 import 'package:job_me/advertisements/services/ad_to_special_adder.dart';
-import 'package:job_me/advertisements/services/transactions_and_orders_fetcher.dart';
+import 'package:job_me/advertisements/services/bought_coins_plans_fetcher.dart';
 
 class AdToSpecialProvider extends ChangeNotifier {
   BuildContext context;
-  List<Transaction> _transactions = [];
+  List<BoughtCoinsPlan> _transactions = [];
 
-  List<Transaction> get transactions => _transactions.where((element) => !element.isUsed()).toList();
+  List<BoughtCoinsPlan> get transactions => _transactions.where((element) => !element.isUsed()).toList();
   final TransactionsFetcher _transactionsFetcher = TransactionsFetcher();
 
   AdToSpecialProvider(this.context);
@@ -23,7 +23,7 @@ class AdToSpecialProvider extends ChangeNotifier {
 
   bool isLoading = false;
 
-  Future addToSpecial({required JobAdvertisement jobAdvertisement, required Transaction transaction}) async {
+  Future addToSpecial({required JobAdvertisement jobAdvertisement, required BoughtCoinsPlan transaction}) async {
     try {
       await _adToSpecialAdder.addToSpecial(jobAdvertisement,transaction);
       return true;
@@ -34,12 +34,11 @@ class AdToSpecialProvider extends ChangeNotifier {
     }
   }
 
-  Future getTransactions() async {
+  Future getBoughtCoins() async {
     isLoading = true;
     notifyListeners();
-
     try {
-      _transactions = await _transactionsFetcher.getTransactions();
+      _transactions = await _transactionsFetcher.getBoughtCoinsPlans();
     } on ServerSentException catch (e) {
       showSnackBar(body: json.encode(e.errorResponse));
     } on AppException catch (e) {
