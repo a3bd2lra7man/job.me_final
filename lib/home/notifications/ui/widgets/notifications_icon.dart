@@ -53,7 +53,7 @@ class _NotificationsIconState extends State<NotificationsIcon> {
                 decoration: const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                 child: Center(
                   child: Text(
-                    provider.unSeenNotifications.length.toString(),
+                    provider.unSeenNotificationCount,
                     style: TextStyle(color: AppColors.white, fontSize: 10),
                   ),
                 ),

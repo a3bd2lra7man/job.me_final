@@ -45,7 +45,7 @@ class JobAdvertisement {
       _name = json['user']['fullname'];
       _image = json['user']['photo'];
       jobCountry = json['user']['country'];
-      userId = json['user']['id'];
+      userId = json['user']['id'] ;
     }
     requirement = json['requirement'];
     _publishTime = json['updated_at'].toString().split('T')[0];

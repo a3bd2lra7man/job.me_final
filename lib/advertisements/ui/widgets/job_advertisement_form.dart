@@ -5,7 +5,6 @@ import 'package:job_me/_shared/themes/colors.dart';
 import 'package:job_me/_shared/themes/text_styles.dart';
 import 'package:job_me/_shared/widgets/primary_edit_text.dart';
 import 'package:job_me/_utils/localizations/localization_proivder.dart';
-import 'package:job_me/advertisements/models/category.dart';
 import 'package:job_me/advertisements/providers/advertisement_provider.dart';
 import 'package:job_me/advertisements/providers/job_advertisement_form_provider.dart';
 import 'package:job_me/advertisements/ui/screens/select_category.dart';

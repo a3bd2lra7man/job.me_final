@@ -4,7 +4,8 @@ import 'package:job_me/user/_user_core/repositories/user_repository.dart';
 class SearchUrls {
   static String searchNormalJobUrl(int currentPage, String searchText,int? categoryId,String? country) {
     var userRepo = UserRepository();
-    var url =  "${BaseUrls.baseUrl()}/adsJobs?page=$currentPage&special=true&querySearch=$searchText&${userRepo.toQueryParameter()}";
+
+    var url =  "${BaseUrls.baseUrl()}/adsJobs?page=$currentPage&special=true&querySearch=$searchText&searchText=$searchText&${userRepo.toQueryParameter()}";
     if(categoryId != null) url += "&category=$categoryId";
     if(country != null) url += "&country=$country";
     return url;
@@ -12,7 +13,7 @@ class SearchUrls {
 
   static String searchSpecialJobUrl(int currentPage, String searchText,int? categoryId,String? country) {
     var userRepo = UserRepository();
-    var url = "${BaseUrls.baseUrl()}/adsJobs?page=$currentPage&querySearch=$searchText&${userRepo.toQueryParameter()}";
+    var url = "${BaseUrls.baseUrl()}/adsJobs?page=$currentPage&querySearch=$searchText&searchText=$searchText&${userRepo.toQueryParameter()}";
     if(categoryId != null) url += "&category=$categoryId";
     if(country != null) url += "&country=$country";
     return url;

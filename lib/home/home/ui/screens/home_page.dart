@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:job_me/_shared/themes/colors.dart';
+import 'package:job_me/home/_shared/providers/real_time_provider.dart';
 import 'package:job_me/home/_shared/widgets/home_app_bar.dart';
 import 'package:job_me/home/account/ui/screens/account_page.dart';
 import 'package:job_me/home/home/providers/home_provider.dart';
@@ -13,8 +14,11 @@ import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   static Widget init() {
-    return ChangeNotifierProvider(
-      create: (_) => HomePageProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => HomePageProvider()),
+        ChangeNotifierProvider(create: (_) => RealTimeProvider()),
+      ],
       child: const HomePage._(),
     );
   }

@@ -5,7 +5,6 @@ import 'package:job_me/_shared/themes/text_styles.dart';
 import 'package:job_me/_shared/widgets/loading_widget.dart';
 import 'package:job_me/_shared/widgets/primary_app_bar.dart';
 import 'package:job_me/_shared/widgets/primary_button.dart';
-import 'package:job_me/_shared/widgets/shimmer_page.dart';
 import 'package:job_me/advertisements/providers/advertisement_provider.dart';
 import 'package:job_me/advertisements/providers/job_advertisement_form_provider.dart';
 import 'package:job_me/advertisements/ui/widgets/job_advertisement_form.dart';

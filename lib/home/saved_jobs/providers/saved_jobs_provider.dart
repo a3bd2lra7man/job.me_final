@@ -72,7 +72,4 @@ class SavedJobsProvider extends ChangeNotifier {
     showSnackBar(body: context.translate('no_more_data'));
   }
 
-  _toastNoEnteredDataYet() {
-    showSnackBar(body: context.translate('no_entered_data_yet'));
-  }
 }

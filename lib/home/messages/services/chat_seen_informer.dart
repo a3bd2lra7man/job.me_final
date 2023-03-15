@@ -3,21 +3,21 @@ import 'package:job_me/_shared/api/entities/api_response.dart';
 import 'package:job_me/_shared/api/exceptions/api_exception.dart';
 import 'package:job_me/_shared/api/services/api/api.dart';
 import 'package:job_me/_shared/exceptions/unknown_exception.dart';
-import 'package:job_me/advertisements/constants/advertisement_url.dart';
-import 'package:job_me/_job_advertisement_core/models/job_advertisement.dart';
+import 'package:job_me/home/messages/constants/messages_urls.dart';
 
-class JobAdvertisementDeleter {
+class ChatSeenInformer {
   final API _networkAdapter = API();
   bool isLoading = false;
 
-  JobAdvertisementDeleter();
+  ChatSeenInformer();
 
-  Future deleteAnAdJob(JobAdvertisement jobAdvertisement) async {
+  Future<bool> makeMessagesAsSeen(int senderId) async {
     isLoading = true;
-    var url = AdvertisementUrls.deleteAnAdJobUrl(jobAdvertisement.id);
+    var url = ChatsUrls.makeChatSeenUrl();
     var apiRequest = APIRequest(url);
+    apiRequest.addParameter("id", senderId);
     try {
-      var apiResponse = await _networkAdapter.delete(apiRequest);
+      var apiResponse = await _networkAdapter.post(apiRequest);
       isLoading = false;
       return _processResponse(apiResponse);
     } on APIException {
@@ -26,9 +26,10 @@ class JobAdvertisementDeleter {
     }
   }
 
-  Future _processResponse(APIResponse apiResponse) async {
-    if (apiResponse.data['Status'] == null || apiResponse.data['Status'] == false) {
+  Future<bool> _processResponse(APIResponse apiResponse) async {
+    if (apiResponse.statusCode != 200) {
       throw UnknownException();
     }
+    return true;
   }
 }

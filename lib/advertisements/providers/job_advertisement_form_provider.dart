@@ -8,7 +8,6 @@ import 'package:job_me/_shared/api/exceptions/server_sent_exception.dart';
 import 'package:job_me/_shared/exceptions/app_exception.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/widgets/snack_bar.dart';
-import 'package:job_me/advertisements/services/categories_fetcher.dart';
 import 'package:job_me/advertisements/services/job_advertisement_adder.dart';
 import 'package:job_me/advertisements/services/job_advertisement_updater.dart';
 import 'package:job_me/advertisements/ui/screens/failed_success/success_publish_a_job_advertisement.dart';

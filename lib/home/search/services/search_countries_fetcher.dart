@@ -15,7 +15,7 @@ class SearchCountriesFetcher {
 
   SearchCountriesFetcher() : _api = API();
 
-  Future<List<String>> getCoutries() async {
+  Future<List<String>> getCountries() async {
     var countriesUrl = SearchUrls.countriesUrl();
     _sessionId = DateTime.now().millisecondsSinceEpoch.toString();
     var countryApiRequest = APIRequest.withId(countriesUrl, _sessionId);

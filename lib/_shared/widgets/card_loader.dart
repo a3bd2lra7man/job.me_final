@@ -11,6 +11,7 @@ class CardLoader extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: SizedBox(
         height: height,
+        width: double.infinity,
         child: Card(
           elevation: 20,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

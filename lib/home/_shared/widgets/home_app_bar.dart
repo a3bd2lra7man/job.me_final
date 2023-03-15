@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/themes/colors.dart';
 import 'package:job_me/_shared/themes/text_styles.dart';
+import 'package:job_me/home/_shared/providers/real_time_provider.dart';
 import 'package:job_me/home/home/providers/home_provider.dart';
+import 'package:job_me/home/messages/ui/widgets/chat_icon.dart';
 import 'package:job_me/home/notifications/ui/widgets/notifications_icon.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +16,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     HomePageProvider provider = context.watch<HomePageProvider>();
+    var realTimeProvider = context.watch<RealTimeProvider>();
+    realTimeProvider.messagesListeners;
     return Container(
       decoration: BoxDecoration(border: Border(bottom: BorderSide(color: AppColors.primary.withOpacity(.4), width: 2))),
       child: Card(
@@ -52,7 +56,12 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                             ),
                           ),
                         ),
-                  if (provider.isUserLoggedIn()) Expanded(child: NotificationsIcon.init())
+                  if (provider.isUserLoggedIn()) Row(
+                    children: [
+                      ChatIcon.init(),
+                      NotificationsIcon.init(),
+                    ],
+                  )
                 ],
               ),
             ],

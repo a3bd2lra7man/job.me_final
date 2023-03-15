@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/themes/colors.dart';
 import 'package:job_me/_shared/widgets/primary_app_bar.dart';
-import 'package:job_me/advertisements/providers/ad_to_special_provider.dart';
-import 'package:job_me/advertisements/providers/my_ads_provider.dart';
+import 'package:job_me/advertisement_core/proivders/my_ads_provider.dart';
 import 'package:job_me/advertisements/ui/widgets/my_ads_card.dart';
 import 'package:job_me/advertisements/ui/widgets/my_ads_loader.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +12,6 @@ class MyAdvertisementScreen extends StatefulWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => MyAdsProvider(context)),
-        ChangeNotifierProvider(create: (context) => AdToSpecialProvider(context)),
       ],
       child: const MyAdvertisementScreen._(),
     );

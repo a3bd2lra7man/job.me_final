@@ -199,7 +199,7 @@ class _AcceptEmployeeApplicationScreenState extends State<AcceptEmployeeApplicat
                     height: 40,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),

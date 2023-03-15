@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:job_me/_shared/themes/colors.dart';
 import 'package:job_me/_shared/themes/text_styles.dart';
 import 'package:job_me/_job_advertisement_core/models/job_advertisement.dart';
-import 'package:job_me/advertisements/providers/my_ads_provider.dart';
+import 'package:job_me/advertisement_core/proivders/my_ads_provider.dart';
 import 'package:job_me/advertisements/ui/screens/update_job_advertisement_screen.dart';
+import 'package:job_me/advertisements/ui/widgets/delete_advertisement_confirmation_dialog.dart';
 import 'package:provider/provider.dart';
 
 class MyAdsCard extends StatefulWidget {
@@ -52,7 +53,7 @@ class _MyAdsCardState extends State<MyAdsCard> {
                 const SizedBox(width: 8),
                 GestureDetector(
                   onTap: () async {
-                    Get.to(() => UpdateJobAdvertisementScreen.init(widget.job));
+                    Get.to(UpdateJobAdvertisementScreen.init(widget.job));
                   },
                   child: Icon(
                     Icons.edit,
@@ -60,13 +61,18 @@ class _MyAdsCardState extends State<MyAdsCard> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                myAdsProvider.isTransactionLoading
+                myAdsProvider.isTransactionLoading(widget.job.id)
                     ? const CircularProgressIndicator()
-                    : GestureDetector(
-                        onTap: () async {
-                          myAdsProvider.deleteAnAd(widget.job);
+                    : IconButton(
+                        onPressed: () async {
+                          Get.bottomSheet(ChangeNotifierProvider.value(
+                            value: myAdsProvider,
+                            child: DeleteAdvertisementConfirmationDialog(
+                              jobAdvertisement: widget.job,
+                            ),
+                          ));
                         },
-                        child: const Icon(
+                        icon: const Icon(
                           Icons.delete,
                           color: Colors.red,
                         ),

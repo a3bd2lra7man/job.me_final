@@ -22,7 +22,7 @@ class AdvertisementOffersProvider extends ChangeNotifier {
   // MARK: get advertisement offers
 
   bool isLoading = true;
-  final BalanceFetcher _offersFetcher = BalanceFetcher();
+  final BalanceFetcher _balanceFetcher = BalanceFetcher();
   final CategoriesFetcher _categoriesFetcher = CategoriesFetcher();
 
   Future getRequiredData() async {
@@ -30,7 +30,7 @@ class AdvertisementOffersProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      userBalance = await _offersFetcher.getAdvertisementsOffers();
+      userBalance = await _balanceFetcher.getBalance();
       selectableCategories = await _categoriesFetcher.getCategories();
     } on ServerSentException catch (e) {
       showSnackBar(body: json.encode(e.errorResponse));

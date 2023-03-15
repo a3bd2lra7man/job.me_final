@@ -38,7 +38,7 @@ class SearchJobsProvider extends ChangeNotifier {
 
     try {
       selectableCategories = await _categoriesFetcher.getCategories();
-      selectableCountries = await _countriesFetcher.getCoutries();
+      selectableCountries = await _countriesFetcher.getCountries();
     } on ServerSentException catch (e) {
       showSnackBar(body: json.encode(e.errorResponse));
     } on AppException catch (e) {

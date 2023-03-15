@@ -6,8 +6,8 @@ import 'package:job_me/_shared/exceptions/app_exception.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/widgets/snack_bar.dart';
 import 'package:job_me/_job_advertisement_core/models/job_advertisement.dart';
-import 'package:job_me/advertisements/services/job_advertisement_deleter.dart';
-import 'package:job_me/advertisements/services/my_ads_fetcher.dart';
+import 'package:job_me/advertisement_core/services/job_advertisement_deleter.dart';
+import 'package:job_me/advertisement_core/services/my_ads_fetcher.dart';
 
 
 class MyAdsProvider extends ChangeNotifier {
@@ -28,7 +28,8 @@ class MyAdsProvider extends ChangeNotifier {
 
   bool get isPaginationLoading => _isPaginationLoading;
 
-  bool get isTransactionLoading => _isTransactionLoading;
+  int? _currentTransactionId;
+  bool isTransactionLoading( int id) => id == _currentTransactionId;
 
   Future refreshAndGetMyAds() async {
     _myAdsFetcher.refreshPagination();
@@ -84,6 +85,7 @@ class MyAdsProvider extends ChangeNotifier {
   }
 
   Future deleteAnAd(JobAdvertisement jobAdvertisement) async {
+    _currentTransactionId = jobAdvertisement.id;
     _isTransactionLoading = true;
     notifyListeners();
     try {

@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:get/get_utils/get_utils.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/themes/colors.dart';
 import 'package:job_me/_shared/themes/text_styles.dart';

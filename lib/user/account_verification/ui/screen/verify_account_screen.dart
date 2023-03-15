@@ -1,4 +1,4 @@
-import 'package:country_code_picker/country_code_picker.dart';
+import 'package:country_code_picker_x/country_code_picker_x.dart';
 import 'package:flutter/material.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/themes/colors.dart';
@@ -64,7 +64,7 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
                     hint: context.translate('phone'),
                   ),
                 ),
-                CountryCodePicker(
+                CountryCodePickerX(
                   onChanged: _onChangeCountryCode,
                   initialSelection: 'KW',
                   favorite: const ['+965', 'KW', '+970', 'PS'],

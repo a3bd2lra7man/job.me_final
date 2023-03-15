@@ -5,8 +5,8 @@ import 'package:job_me/_shared/api/entities/api_response.dart';
 import 'package:job_me/_shared/api/exceptions/api_exception.dart';
 import 'package:job_me/_shared/api/services/api/api.dart';
 import 'package:job_me/_shared/exceptions/unknown_exception.dart';
-import 'package:job_me/advertisements/constants/advertisement_url.dart';
-import 'package:job_me/advertisements/models/bought_coins_plan.dart';
+import 'package:job_me/advertisement_core/models/bought_coins_plan.dart';
+import 'package:job_me/advertisement_special/constants/advertisement_special_url.dart';
 
 class TransactionsFetcher {
   final API _api;
@@ -16,7 +16,7 @@ class TransactionsFetcher {
   TransactionsFetcher() : _api = API();
 
   Future<List<BoughtCoinsPlan>> getBoughtCoinsPlans() async {
-    var url = AdvertisementUrls.offersUrl();
+    var url = AdvertisementsSpecialUrls.boughtCoinsUrl();
     _sessionId = DateTime.now().millisecondsSinceEpoch.toString();
     var apiRequest = APIRequest.withId(url, _sessionId);
 
@@ -50,13 +50,15 @@ class TransactionsFetcher {
     if (apiResponse.data['Result'] == null) throw UnknownException();
     if (apiResponse.data['Result']['orders'] == null) throw UnknownException();
     if (apiResponse.data['Result']['orders']['data'] == null) throw UnknownException();
+    if (apiResponse.data['Result']['plans'] == null) throw UnknownException();
   }
 
   List<BoughtCoinsPlan> _getUsersTransactions(APIResponse apiResponse) {
+    var plans = apiResponse.data['Result']['plans'] as List;
     var transactionsList = apiResponse.data['Result']['orders']['data'] as List;
     var transactions = <BoughtCoinsPlan>[];
     for (var element in transactionsList) {
-      transactions.add(BoughtCoinsPlan.fromJson(element));
+      transactions.add(BoughtCoinsPlan.fromJson(element,plans));
     }
     return transactions;
   }

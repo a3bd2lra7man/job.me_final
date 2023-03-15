@@ -1,4 +1,5 @@
 import 'package:job_me/_shared/api/constants/base_url.dart';
+import 'package:job_me/user/_user_core/repositories/user_repository.dart';
 
 class OfferUrls {
   static String employeeOffersUrls(int currentPage) {
@@ -10,7 +11,8 @@ class OfferUrls {
   }
 
   static String companyJobDetailsUrls(int jobId) {
-    return "${BaseUrls.baseUrl()}/adsJobs/$jobId";
+    var userId =  UserRepository().getUser().id;
+    return "${BaseUrls.baseUrl()}/adsJobs/$jobId?user_id=$userId";
   }
 
   static acceptOffer() {

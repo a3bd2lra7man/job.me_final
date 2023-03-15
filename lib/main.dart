@@ -6,11 +6,14 @@ import 'package:job_me/_main/ui/splash_screen.dart';
 import 'package:job_me/_utils/localizations/app_localization.dart';
 import 'package:job_me/_utils/localizations/localization_proivder.dart';
 import 'package:provider/provider.dart';
+// import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
   await LocalizationProvider.init();
   runApp(MyApp.init());

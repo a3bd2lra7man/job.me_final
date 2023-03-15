@@ -17,7 +17,7 @@ class OffersAndBalanceFetcher {
   OffersAndBalanceFetcher() : _api = API();
 
   Future<BuyCoinsModel> getCoinsOffersWithBalance() async {
-    var url = AdvertisementUrls.offersUrl();
+    var url = AdvertisementUrls.balanceUrl();
     _sessionId = DateTime.now().millisecondsSinceEpoch.toString();
     var apiRequest = APIRequest.withId(url, _sessionId);
 

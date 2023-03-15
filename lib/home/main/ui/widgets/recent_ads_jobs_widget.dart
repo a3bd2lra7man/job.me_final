@@ -13,16 +13,11 @@ class RecentAdsJobsWidget extends StatefulWidget {
 }
 
 class _RecentAdsJobsWidgetState extends State<RecentAdsJobsWidget> {
-  final _recentJobsScrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _recentJobsScrollController.addListener(() {
-      if (_recentJobsScrollController.position.pixels == _recentJobsScrollController.position.maxScrollExtent) {
-        context.read<RecentJobProvider>().getNextJobs();
-      }
-    });
+
   }
 
   @override
@@ -31,9 +26,7 @@ class _RecentAdsJobsWidgetState extends State<RecentAdsJobsWidget> {
 
     return recentJobsProvider.isFirstLoading
         ? const RecentJobLoader()
-        : ListView(
-            shrinkWrap: true,
-            controller: _recentJobsScrollController,
+        : Column(
             children: [
               ...recentJobsProvider.jobs
                   .map(

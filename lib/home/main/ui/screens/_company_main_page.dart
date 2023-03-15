@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/themes/colors.dart';
 import 'package:job_me/_shared/themes/text_styles.dart';
+import 'package:job_me/home/main/providers/general_ads_proivder.dart';
 import 'package:job_me/home/main/providers/recent_job_provider.dart';
 import 'package:job_me/home/main/providers/special_job_provider.dart';
+import 'package:job_me/home/main/ui/widgets/governement_ads_widget.dart';
 import 'package:job_me/home/main/ui/widgets/recent_ads_jobs_widget.dart';
 import 'package:job_me/home/main/ui/widgets/special_ads_jobs_widget.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +16,7 @@ class CompanyMainPage extends StatefulWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => RecentJobProvider(context)),
         ChangeNotifierProvider(create: (context) => SpecialJobProvider(context)),
+        ChangeNotifierProvider(create: (context) => GeneralAdsProvider(context)),
       ],
       child: const CompanyMainPage._(),
     );
@@ -26,11 +29,19 @@ class CompanyMainPage extends StatefulWidget {
 }
 
 class _CompanyMainPageState extends State<CompanyMainPage> {
+  final _recentJobsScrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _getSpecialAndRecentJobs();
+      context.read<GeneralAdsProvider>().getAds();
+      _recentJobsScrollController.addListener(() {
+        if (_recentJobsScrollController.position.pixels == _recentJobsScrollController.position.maxScrollExtent) {
+          context.read<RecentJobProvider>().getNextJobs();
+        }
+      });
     });
   }
 
@@ -49,8 +60,8 @@ class _CompanyMainPageState extends State<CompanyMainPage> {
         color: AppColors.primary.withOpacity(.04),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            controller: _recentJobsScrollController,
             children: [
               const SizedBox(height: 16),
               Text(
@@ -75,11 +86,17 @@ class _CompanyMainPageState extends State<CompanyMainPage> {
               ),
               const SizedBox(height: 16),
               Text(
+                context.translate('governments_ads'),
+                style: AppTextStyles.titleBold,
+              ),
+              const GovernmentAdsWidget(),
+              const SizedBox(height: 16),
+              Text(
                 context.translate('employee_normal_ads'),
                 style: AppTextStyles.titleBold,
               ),
               const SizedBox(height: 4),
-              const Expanded(child: RecentAdsJobsWidget()),
+              const RecentAdsJobsWidget(),
             ],
           ),
         ),

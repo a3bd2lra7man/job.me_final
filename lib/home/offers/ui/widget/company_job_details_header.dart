@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:job_me/_job_advertisement_core/models/job_advertisement.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/themes/colors.dart';
@@ -183,11 +184,14 @@ class TitleWithIcon extends StatelessWidget {
       children: [
         icon,
         const SizedBox(width: 8),
-        Text(
-          title,
-          overflow: TextOverflow.ellipsis,
-          style: AppTextStyles.bodyNormal.copyWith(
-            color: Colors.grey[600],
+        SizedBox(
+          width: context.width * .3,
+          child: Text(
+            title,
+            overflow: TextOverflow.ellipsis,
+            style: AppTextStyles.bodyNormal.copyWith(
+              color: Colors.grey[600],
+            ),
           ),
         )
       ],

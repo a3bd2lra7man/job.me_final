@@ -1,4 +1,6 @@
 // ignore_for_file: avoid_print
+import 'dart:developer';
+
 import 'package:http/http.dart' as http;
 
 import 'dart:convert';
@@ -72,18 +74,24 @@ class NetworkRequestExecutor implements NetworkAdapter {
 
   Future<APIResponse> executeRequestWithFormData(APIRequest apiRequest) async {
     try {
+      log("1");
       var uri = Uri.parse(apiRequest.url);
+      log("3");
       var request = http.MultipartRequest('POST', uri);
+      log("4");
       apiRequest.parameters.forEach((key, value) {
+        log(key);
         if (value.runtimeType == String) request.fields[key] = value;
         if (key == 'photo') request.files.add(value);
       });
+      log("5");
       request.headers.addAll(apiRequest.headers);
       var response = await request.send();
       if (response.statusCode == 200) print('Uploaded!');
       String reply = await response.stream.transform(utf8.decoder).join();
+      log(reply);
       var res = json.decode(reply);
-      print(res);
+      log(res.toString());
       return APIResponse(apiRequest, response.statusCode, res, {});
     } on DioError catch (error) {
       throw _processError(error);
@@ -97,7 +105,7 @@ class NetworkRequestExecutor implements NetworkAdapter {
   APIResponse _processResponse(Response response, APIRequest apiRequest) {
     try {
       var responseData = json.decode(response.data);
-      print(responseData);
+      log(responseData.toString());
       return APIResponse(apiRequest, response.statusCode!, responseData, {});
     } catch (e) {
       throw UnexpectedResponseFormatException();
@@ -109,7 +117,7 @@ class NetworkRequestExecutor implements NetworkAdapter {
       if (error.response != null && error.response!.data != null) {
         var data = error.response!.data;
         var dataJson = json.decode(data);
-        print(dataJson);
+        log(dataJson.toString());
         return ServerSentException(errorResponse: dataJson);
       } else {
         return HTTPException();

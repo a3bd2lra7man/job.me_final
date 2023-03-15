@@ -6,10 +6,10 @@ import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/themes/colors.dart';
 import 'package:job_me/_shared/themes/text_styles.dart';
 
-class JobHeader extends StatelessWidget {
+class AdvertisementJobCard extends StatelessWidget {
   final JobAdvertisement job;
 
-  const JobHeader({Key? key, required this.job}) : super(key: key);
+  const AdvertisementJobCard({Key? key, required this.job}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

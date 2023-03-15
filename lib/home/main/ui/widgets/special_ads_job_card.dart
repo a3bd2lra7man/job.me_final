@@ -24,6 +24,7 @@ class SpecialAdJobCard extends StatelessWidget {
           margin: const EdgeInsets.only(left: 8, top: 8, bottom: 8),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 12),
               Row(
@@ -38,8 +39,8 @@ class SpecialAdJobCard extends StatelessWidget {
                         )
                       : Image.asset(
                           'assets/images/img_2.png',
-                          height: 40,
-                          width: 40,
+                    height: 64,
+                    width: 72,
                         ),
                   const SizedBox(width: 20),
                   Expanded(
@@ -55,10 +56,13 @@ class SpecialAdJobCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               const Divider(thickness: 2,),
-              Center(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
                   job.title,
                   style: AppTextStyles.headerSmall,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.start,
                 ),
               ),
               const SizedBox(height: 12),

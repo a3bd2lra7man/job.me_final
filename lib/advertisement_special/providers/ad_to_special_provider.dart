@@ -6,9 +6,9 @@ import 'package:job_me/_shared/api/exceptions/server_sent_exception.dart';
 import 'package:job_me/_shared/exceptions/app_exception.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/widgets/snack_bar.dart';
-import 'package:job_me/advertisements/models/bought_coins_plan.dart';
-import 'package:job_me/advertisements/services/ad_to_special_adder.dart';
-import 'package:job_me/advertisements/services/bought_coins_plans_fetcher.dart';
+import 'package:job_me/advertisement_core/models/bought_coins_plan.dart';
+import 'package:job_me/advertisement_special/services/ad_to_special_adder.dart';
+import 'package:job_me/advertisement_special/services/bought_coins_plans_fetcher.dart';
 
 class AdToSpecialProvider extends ChangeNotifier {
   BuildContext context;

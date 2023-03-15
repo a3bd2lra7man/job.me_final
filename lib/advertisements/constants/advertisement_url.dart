@@ -1,8 +1,7 @@
 import 'package:job_me/_shared/api/constants/base_url.dart';
 
 class AdvertisementUrls{
-
-  static String offersUrl(){
+  static String balanceUrl(){
     return "${BaseUrls.baseUrl()}/plans";
   }
 

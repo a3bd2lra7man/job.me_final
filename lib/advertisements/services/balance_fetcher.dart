@@ -14,8 +14,8 @@ class BalanceFetcher {
 
   BalanceFetcher() : _api = API();
 
-  Future<num> getAdvertisementsOffers() async {
-    var url = AdvertisementUrls.offersUrl();
+  Future<num> getBalance() async {
+    var url = AdvertisementUrls.balanceUrl();
     _sessionId = DateTime.now().millisecondsSinceEpoch.toString();
     var apiRequest = APIRequest.withId(url, _sessionId);
 

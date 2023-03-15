@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/themes/colors.dart';
 import 'package:job_me/_shared/themes/text_styles.dart';
@@ -76,15 +77,21 @@ class JobDetailsHeader extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      job.title,
-                      style: AppTextStyles.bodyMedium,
-                      overflow: TextOverflow.ellipsis,
+                    SizedBox(
+                      width: 200,
+                      child: Text(
+                        job.title,
+                        style: AppTextStyles.bodyMedium,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                    Text(
-                      job.name,
-                      style: AppTextStyles.hint.copyWith(color: AppColors.darkGrey),
-                      overflow: TextOverflow.ellipsis,
+                    SizedBox(
+                      width: 200,
+                      child: Text(
+                        job.name,
+                        style: AppTextStyles.hint.copyWith(color: AppColors.darkGrey),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ],
                 ),
@@ -193,11 +200,14 @@ class TitleWithIcon extends StatelessWidget {
       children: [
         icon,
         const SizedBox(width: 8),
-        Text(
-          title,
-          overflow: TextOverflow.ellipsis,
-          style: AppTextStyles.bodyNormal.copyWith(
-            color: Colors.grey[600],
+        SizedBox(
+          width: context.width * .33,
+          child: Text(
+            title,
+            overflow: TextOverflow.ellipsis,
+            style: AppTextStyles.bodyNormal.copyWith(
+              color: Colors.grey[600],
+            ),
           ),
         )
       ],

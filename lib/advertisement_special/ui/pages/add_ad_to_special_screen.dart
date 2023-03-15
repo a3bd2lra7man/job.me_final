@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:job_me/_job_advertisement_core/models/job_advertisement.dart';
-import 'package:job_me/advertisements/providers/ad_to_special_provider.dart';
-import 'package:job_me/advertisements/providers/my_ads_provider.dart';
-import 'package:job_me/advertisements/ui/widgets/job_header.dart';
-import 'package:job_me/advertisements/ui/widgets/transaction_card.dart';
-import 'package:job_me/advertisements/ui/widgets/transactions_card_loader.dart';
+import 'package:job_me/advertisement_special/providers/ad_to_special_provider.dart';
+import 'package:job_me/advertisement_core/proivders/my_ads_provider.dart';
+import 'package:job_me/advertisement_special/ui/widgets/advertisement_job_card.dart';
+import 'package:job_me/advertisement_special/ui/widgets/transaction_card.dart';
+import 'package:job_me/advertisement_special/ui/widgets/transactions_card_loader.dart';
 import 'package:provider/provider.dart';
 import 'package:job_me/_shared/extensions/context_extensions.dart';
 import 'package:job_me/_shared/themes/colors.dart';
@@ -15,25 +15,11 @@ import 'package:job_me/_shared/widgets/primary_app_bar.dart';
 class AddAdToSpecialScreen extends StatefulWidget {
   final JobAdvertisement jobAdvertisement;
 
-  static Widget init(
-      {required AdToSpecialProvider? adToSpecialProvider,
-      required MyAdsProvider? myAdsProvider,
-      required JobAdvertisement jobAdvertisement}) {
+  static Widget init({required JobAdvertisement jobAdvertisement}) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider.value(
-            value: myAdsProvider,
-          ),
-          myAdsProvider != null
-              ? ChangeNotifierProvider.value(
-                  value: myAdsProvider,
-                )
-              : ChangeNotifierProvider(create: (context) => MyAdsProvider(context)),
-          adToSpecialProvider != null
-              ? ChangeNotifierProvider.value(
-                  value: adToSpecialProvider,
-                )
-              : ChangeNotifierProvider(create: (context) => AdToSpecialProvider(context))
+          ChangeNotifierProvider(create: (context) => MyAdsProvider(context)),
+          ChangeNotifierProvider(create: (context) => AdToSpecialProvider(context))
         ],
         child: AddAdToSpecialScreen._(
           jobAdvertisement: jobAdvertisement,
@@ -70,7 +56,7 @@ class _AddAdToSpecialScreenState extends State<AddAdToSpecialScreen> {
             ? const AdToSpecialLoader()
             : provider.transactions.isEmpty
                 ? SizedBox(
-                    height: context.height ,
+                    height: context.height,
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.all(16),
@@ -86,12 +72,12 @@ class _AddAdToSpecialScreenState extends State<AddAdToSpecialScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     children: [
                       const SizedBox(height: 20),
-                      JobHeader(
+                      AdvertisementJobCard(
                         job: widget.jobAdvertisement,
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        context.translate('coins_cards'),
+                        context.translate('pick_active_coins_cards'),
                         style: AppTextStyles.titleBold,
                       ),
                       ...(provider.transactions

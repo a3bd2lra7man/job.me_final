@@ -9,7 +9,7 @@ import 'package:job_me/_shared/widgets/primary_app_bar.dart';
 import 'package:job_me/_shared/widgets/primary_button.dart';
 import 'package:job_me/advertisements/providers/advertisement_provider.dart';
 import 'package:job_me/advertisements/providers/job_advertisement_form_provider.dart';
-import 'package:job_me/advertisements/ui/screens/add_ad_to_special_screen.dart';
+import 'package:job_me/advertisement_special/ui/pages/add_ad_to_special_screen.dart';
 import 'package:job_me/advertisements/ui/widgets/job_advertisement_form.dart';
 import 'package:job_me/advertisements/ui/widgets/job_advertisement_form_header.dart';
 import 'package:provider/provider.dart';
@@ -103,8 +103,7 @@ class _UpdateJobAdvertisementScreenState extends State<UpdateJobAdvertisementScr
                 color: AppColors.white,
                 titleColor: AppColors.primary,
                 onPressed: () {
-                  Get.to(AddAdToSpecialScreen.init(
-                      adToSpecialProvider: null, myAdsProvider: null, jobAdvertisement: widget.jobAdvertisement));
+                  Get.to(AddAdToSpecialScreen.init( jobAdvertisement: widget.jobAdvertisement));
                 },
                 title: context.translate('add_to_special'),
               ),
