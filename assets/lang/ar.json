@@ -228,6 +228,19 @@
   "category_selection": "اختيار التصنيف",
   "country_selection": "اختيار الدولة",
   "you_did_not_buy_any_coins": "عذرا يبدو أنك لم تقم بشراء أي عملات \n الرجاء قم بشراء بعض العملات ثم العودة مرة أخرى",
-  "success_adding_advertisement_to_special": "تم إضافة اعلانك ف المميزة بنجاح"
+  "success_adding_advertisement_to_special": "تم إضافة اعلانك ف المميزة بنجاح",
+  "messages" : "الرسائل",
+  "no_other_messages": "لا توجد رسائل أخرى",
+  "are_you_sure_to_delete_account": "سوف تقوم بمسح حسابك وخسارة كل بياناتك هل أنت متأكد ؟",
+  "picture": "تم إرسال صورة",
+  "audio": "تم إرسال ملف صوتي",
+  "governments_ads":"إعلانات حكومية",
+  "need_mic_access": "للتمتع بهذه الخاصية يحتاج التطبيق الوصول إلى المايكروفون",
+  "add_advertisement_to_special": "أضف إعلاني إلى المميزة/بريميوم",
+  "choose_ad_to_ad_to_special": "اختر إعلان لإضافته ف المميزة",
+  "please_ad_an_ad_first": "عذرا يبدو أنك لم تقم بإضافة أي إعلان \n الرجاء الإعلان عن نفسك أو وظيفة أولا",
+  "pick_active_coins_cards": "اختر من العملات المشترية النشطة",
+  "advertise_to_special": "أضف إلى المميزة/بريميوم",
+  "are_you_sure_to_delete_advertisement": "هل أنت متأكد أنك تريد حذف هذا الإعلان"
 
 }
