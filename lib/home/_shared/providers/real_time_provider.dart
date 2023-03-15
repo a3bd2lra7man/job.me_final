@@ -5,7 +5,6 @@ import 'package:http/http.dart';
 import 'package:job_me/home/messages/models/chat.dart';
 import 'package:job_me/user/_user_core/repositories/user_repository.dart';
 
-// import 'package:pusher_client/pusher_client.dart';
 import 'dart:developer';
 
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';

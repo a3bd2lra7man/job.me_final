@@ -6,7 +6,6 @@ import 'package:job_me/_shared/widgets/shimmer_page.dart';
 import 'package:job_me/home/main/providers/general_ads_proivder.dart';
 import 'package:job_me/home/main/ui/screens/governments_ad_web_view.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class GovernmentAdsWidget extends StatelessWidget {
   const GovernmentAdsWidget({Key? key}) : super(key: key);

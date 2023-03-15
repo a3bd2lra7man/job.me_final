@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:job_me/_shared/themes/colors.dart';
 import 'package:job_me/_shared/themes/text_styles.dart';
 import 'package:job_me/_job_advertisement_core/models/job_advertisement.dart';
 import 'package:job_me/advertisement_core/proivders/my_ads_provider.dart';

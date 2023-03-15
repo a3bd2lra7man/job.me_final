@@ -22,7 +22,6 @@ class MyAdsProvider extends ChangeNotifier {
   final List<JobAdvertisement> myAds = [];
   bool _isFirstLoading = false;
   bool _isPaginationLoading = false;
-  bool _isTransactionLoading = false;
 
   bool get isFirstLoading => _isFirstLoading;
 
@@ -86,14 +85,13 @@ class MyAdsProvider extends ChangeNotifier {
 
   Future deleteAnAd(JobAdvertisement jobAdvertisement) async {
     _currentTransactionId = jobAdvertisement.id;
-    _isTransactionLoading = true;
     notifyListeners();
     try {
       await _adDeleter.deleteAnAdJob(jobAdvertisement);
-      _isTransactionLoading = false;
       notifyListeners();
       _myAdsFetcher.refreshPagination();
       myAds.clear();
+      _currentTransactionId = null;
       await getNextMyAds();
     } on ServerSentException catch (e) {
       showSnackBar(body: json.encode(e.errorResponse));

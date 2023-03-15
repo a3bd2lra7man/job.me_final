@@ -2,7 +2,7 @@ name: job_me
 description: A new Flutter project.
 publish_to: 'none'
 
-version: 1.0.8+9
+version: 1.0.9+10
 
 environment:
   sdk: '>=2.18.4 <3.0.0'
@@ -37,11 +37,10 @@ dependencies:
   country_list_picker: ^1.0.1
   firebase_auth: ^4.1.4
   firebase_core: ^2.3.0
-#  firebase_core: ^1.16.0 # huwawi
-#  firebase_auth: ^3.3.11 # huwawi
-
-
-  country_code_picker:
+  carousel_slider: ^4.1.1
+  photo_view:
+  pusher_channels_flutter: ^2.1.2
+  country_code_picker_x: ^2.0.5
 
 dev_dependencies:
   flutter_test:
